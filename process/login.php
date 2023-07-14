@@ -22,7 +22,7 @@ if (getPasswordUpdate($mysqli, $username)) {
   if (password_verify($password, $retrievedPassword)) {
     $_SESSION = getUserCredentials($mysqli, $username);
     // echo "<script>alert('password correct!');</script>";
-    echo "<script>window.location.href='../views/dashboard.php'</script>";
+    echo "<script>window.location.href='../views/index.php'</script>";
   } else {
     echo "<script>alert('password incorrect!');</script>";
     echo "<script>window.location.href='../index.php'</script>";
