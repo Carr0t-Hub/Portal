@@ -59,6 +59,8 @@
       </div>
 		</div>
   </div>
+
+
     <!-- end search modal -->
 
 	<!--start switcher-->
@@ -213,6 +215,41 @@
   </div>
 </form>
 
+	<!-- L O G O U T  B U T T O N -->
+	<form method="POST" action="../process/logout.php">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-danger">
+          <h6 class="modal-title" id="logoutModalLabel"><strong class="text-white"> Ready to Leave?</strong></h6>
+        </div>
+        <div class="modal-body text-dark"><i class="fas fa-sign-out-alt"></i> This will end your current session.</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm fw-bold btn-secondary shadow-none" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" name="logout" id="logoutBtnModal" class="btn btn-sm fw-bold btn-danger shadow-none"><i class="fas fa-sign-out-alt"></i> Logout!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- S U C C E S S  M E S S A G E  -->
+<div class="modal fade" id="positive" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="labelModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content my-2">
+      <div class="modal-header bg-dark text-light">
+        <h5><i class="fas fa-info-circle 2x text-success" id="headerMsg"></i></h5><input type="text" name="" id="PheaderMsg" class="form-control border-0 text-light bg-dark" value="" readonly style="font-size: 20px;">
+      </div>
+      <div class="modal-body">
+        <input class="w-100 alert alert-success mb-0 text-dark " role="alert" type="text" name="" id="Pmessage" value="" readonly>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success btn-lg" data-bs-dismiss="modal" onclick="window.location.reload();"><i class="fas fa-thumbs-up"></i> Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <!-- Bootstrap JS -->
   <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
@@ -236,6 +273,15 @@
   function updatePasswordModal() {
     $('#forceUpdatePassword').modal('show');
   }
+</script>
+
+<script type="text/javascript">
+  var myModal = document.getElementById('logoutModal')
+  var myInput = document.getElementById('logoutBtnModal')
+
+  myModal.addEventListener('shown.bs.modal', function() {
+    myInput.focus()
+  })
 </script>
 
 <script>

@@ -4,7 +4,7 @@ date_default_timezone_set('Asia/Manila');
 ini_set('display_errors', 1);
 include_once 'helpers.php';
 
-use PHPMailer\PHPMailer\PHPMailer;
+use assets\vendor\PHPMailer\PHPMailer\PHPMailer;
 
 //notes
 
@@ -48,9 +48,10 @@ function userlogin($mysqli, $username, $password, $access)
       $_SESSION['username'] = $row['username'];
       $_SESSION['section'] = $row['section'];
       //return the result if input is correct
+      echo '<script type="text/javascript">alert("WALA NAMANG SESSION POTA")</script>';
       return $row;
     } else {
-
+  
       //return false if input not correct
       return false;
     }
@@ -6792,7 +6793,7 @@ function dtsSavePersonCon($mysqli, $firstName, $lastName, $email, $divAgency)
   return "true";
 }
 
-function dtsGetReferenceNo($mysqli, $year)
+function dtsGetReferenceNo($mysqli,  $year)
 {
   $temp = array();
   $sql = "SELECT * FROM dts_incoming WHERE referenceNo LIKE :this";
@@ -6935,10 +6936,10 @@ function dtsSaveIncoming($mysqli, $category, $IreferenceNo, $Isender, $Idocument
     } // End Incoming
 
     // FOR INCOMING OD
-   function dtsSaveIncomingOD($mysqli,$id,$dtsDocuActionNeeded,$dtsDocuRemarks,$dtsActionTaken,$dtsDateDone, $dtsDocuDivision){
+   function dtsSaveIncomingOD($mysqli,$id,$dtsDocuActionNeeded,$dtsDocuRemarks,$dtsActionTaken,$dtsDateDone, $dtsDocuDivision, $dtsDocuSection){
      // Start Incoming
-      $sql = "INSERT INTO dts_incomingfield(`actionNeeded`,`remarks`,`actionTaken`,`dateDone`, `concernedDivision`,`referenceNo`) 
-        VALUES (:actionNeeded,:remarks,:actionTaken,:dateDone, :concernedDivision, :id)";
+      $sql = "INSERT INTO dts_incomingfield(`actionNeeded`,`remarks`,`actionTaken`,`dateDone`, `concernedDivision`,`concernedSection`,`referenceNo`) 
+        VALUES (:actionNeeded,:remarks,:actionTaken,:dateDone, :concernedDivision, :concernedSection, :id)";
       $stmt = $mysqli->prepare($sql);
       $stmt->execute(
          array(
@@ -6948,21 +6949,21 @@ function dtsSaveIncoming($mysqli, $category, $IreferenceNo, $Isender, $Idocument
           ':actionTaken' => $dtsActionTaken,
           ':dateDone' => $dtsDateDone,
           ':concernedDivision' =>  $dtsDocuDivision,
+          ':concernedSection' => $dtsDocuSection,
            ':id' => $id
         )
       );
        return "saved";
     } 
 
-    function UpdateStatusIncoming($mysqli,$id,$statusType,$dtsActionTaken){
+    function UpdateStatusIncoming($mysqli,$id,$statusType){
       $sql = "UPDATE dts_incomingfield SET 
-              StatusType=:StatusType, actionTaken=:actionTaken
+              statusType=:statusType
               WHERE id=:id";
       $stmt = $mysqli->prepare($sql);
       $stmt->execute(
         array(
-          ':StatusType' => $statusType,
-          ':actionTaken' => $dtsActionTaken,
+          ':statusType' => $statusType,
           ':id'=> $id
         )
         );
@@ -7013,7 +7014,7 @@ function dtsGetIncomingDoc($mysqli, $id)
 
 function getDataIncomingTableOD($mysqli,$docuID)
 {
-  $sql = "SELECT  a.concernedDivision as id, a.id AS docID, a.concernedDivision AS person,  a.dateDone, a.actionNeeded, a.remarks, a.actionTaken, a.StatusType, c.referenceNo
+  $sql = "SELECT  a.concernedDivision as id, a.id AS docID, a.concernedDivision AS person, a.concernedSection AS section, a.dateDone, a.actionNeeded, a.remarks, a.actionTaken, a.StatusType, c.referenceNo
   FROM dts_incomingfield a, dts_incoming c
   WHERE a.referenceNo = :docuID 
   AND a.referenceNo=c.id ";
@@ -7187,7 +7188,7 @@ return $temp;
 function getOutgoingdetails($mysqli,$id){
   // $sql = "SELECT dts_incoming.referenceNo as referenceNo,dts_incoming.category as category, dts_incoming.createdDateTime as createdDateTime,CONCAT(dts_personconcerned.firstName,' ',dts_personconcerned.lastName) as sender,dts_docutype.documentType as documentType, dts_incoming.dateReceived as dateReceived, dts_incoming.particulars as particulars FROM dts_incoming INNER JOIN dts_personconcerned ON dts_incoming.sender=dts_personconcerned.id INNER JOIN dts_docutype ON dts_incoming.documentType=dts_docutype.id WHERE dts_incoming.referenceNo = :id";
 $sql = "SELECT b.referenceNo, b.category, b.createdDateTime,
-        CONCAT(c.firstName,' ', c.lastName) as sender, d.documentType, b.particulars, b.actionTaken, b.remarks as remarks, b.sender AS person, b.StatusType, b.attachment 
+        CONCAT(c.firstName,' ', c.lastName) as sender, d.documentType, b.particulars, b.actionTaken, b.sender AS person, b.StatusType, b.attachment 
         FROM dts_outgoing b, dts_personconcerned c, dts_docutype d 
         WHERE c.id = b.addressedTo
         AND d.id = b.documentType
@@ -7201,7 +7202,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 return $temp;
 
 }
-function dtsSaveOutgoing($mysqli, $category, $referenceNo, $sender, $documentType, $particulars, $dtsActionTaken, $dtsOutgoingRemarks , $dtsPersonConcerned, $attachment)
+function dtsSaveOutgoing($mysqli, $category, $referenceNo, $sender, $documentType, $particulars, $dtsActionTaken, $dtsPersonConcerned, $attachment)
 {
   //save attachment information to attachments table
   //save incoming documents details to incoming table
@@ -7222,8 +7223,8 @@ function dtsSaveOutgoing($mysqli, $category, $referenceNo, $sender, $documentTyp
     // FOR OUTGOING
     // FOR OUTGOING
     if ($category == "Outgoing") { // Start Outgoing
-      $sql = "INSERT INTO dts_outgoing(`createdDateTime`,`category`,`referenceNo`,`addressedTo`,`documentType`,`particulars`,`actionTaken`,`remarks`,`sender`,`attachment`) 
-        VALUES (NOW(),:category,:referenceNo,:addressedTo,:documentType,:particulars,:actionTaken,:remarks,:sender,:attachment)";
+      $sql = "INSERT INTO dts_outgoing(`createdDateTime`,`category`,`referenceNo`,`addressedTo`,`documentType`,`particulars`,`actionTaken`,`sender`,`attachment`) 
+        VALUES (NOW(),:category,:referenceNo,:addressedTo,:documentType,:particulars,:actionTaken,:sender,:attachment)";
       $stmt = $mysqli->prepare($sql);
       $stmt->execute(
         array(
@@ -7233,7 +7234,6 @@ function dtsSaveOutgoing($mysqli, $category, $referenceNo, $sender, $documentTyp
           ':documentType' => $documentType,
           ':particulars' => $particulars,
           ':actionTaken' => $dtsActionTaken,
-          ':remarks'=> $dtsOutgoingRemarks,
           ':sender' => $dtsPersonConcerned,
           ':attachment' => $dtsAttachmentID
         )
@@ -7270,7 +7270,7 @@ function dtsSaveOutgoing($mysqli, $category, $referenceNo, $sender, $documentTyp
 
 function dtsGetOutgoingDocus($mysqli)
 {
-  $sql = "SELECT dts_outgoing.referenceNo as referenceNo,dts_outgoing.category as category, dts_outgoing.createdDateTime as createdDateTime, dts_outgoing.sender as sender,dts_docutype.documentType as documentType, dts_outgoing.particulars as subject
+  $sql = "SELECT dts_outgoing.referenceNo as referenceNo,dts_outgoing.category as category, dts_outgoing.createdDateTime as createdDateTime,CONCAT(dts_personconcerned.firstName,' ',dts_personconcerned.lastName) as sender,dts_docutype.documentType as documentType, dts_outgoing.particulars as subject
   FROM dts_outgoing 
   INNER JOIN dts_personconcerned ON dts_outgoing.addressedTo=dts_personconcerned.id INNER JOIN dts_docutype ON dts_outgoing.documentType=dts_docutype.id
   ORDER BY dts_outgoing.createdDateTime DESC limit 10";
@@ -7441,30 +7441,23 @@ function getMemorandumDetails($mysqli, $id){
    }
    return $temp;
  }
+ // Attachment // --TESTING
  
- function dtsMonthlyReport($mysqli){
-   $sql ="SELECT  a.dateDone as received, a.actionTaken as actionTaken, a.StatusType as remarks
-          FROM dts_incomingfield a
-          WHERE a.createdDateTime";
-   $temp = array();
-   $stmt = $mysqli->prepare($sql);
-   $stmt->execute();
-   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-     $temp[] = $row;
-   }
-   return $temp;
- }
 
+//function dtsGenerateQRCode($mysqli)
+//{
+  // S T A R T  Q R  C O D E
+ // $last_id = $mysqli->lastInsertId();
+ /// $encrypted_travel_id = md5(md5(base64_encode($last_id)));
 
-
-
-
-
-
-
-
-
-
+  //include('vendor/qrcode/libs/phpqrcode/qrlib.php');
+ // $tempDir = 'vendor/qrcode/temp/';
+ /// $approved = md5(md5('wahahaha'));
+ // $filename = $encrypted_travel_id;
+//  $codeContents = $encrypted_travel_id . '&id=' . $approved;
+  //QRcode::png($codeContents, $tempDir . '' . $filename . '.png', QR_ECLEVEL_L, 5);
+  // E N D  Q R  C O D E
+//}
 //  ============== E N D  D O C U M E N T  T R A C K I N G ===============
 
 //  ============== S T A R T  NEWSLETTER ===============
@@ -9331,6 +9324,44 @@ function getFullName($mysqli, $username){
   return $temp;
 }
 
+function getEmployeeInformation($mysqli, $username){
+  $sql = "SELECT * FROM view_employeeinfo WHERE username = :username";
+  $stmt = $mysqli->prepare($sql);
+  $stmt->execute([
+    ':username' => $username
+  ]);
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getAllBday($mysqli){
+  $sql = "SELECT * FROM  view_employeeinfo WHERE MONTH(`birthdate`) = MONTH(CURRENT_DATE)";
+  $stmt = $mysqli->prepare($sql);
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getCOSDetails($mysqli){
+  $sql = "SELECT employeeID FROM view_employeeinfo WHERE employeeID LIKE '%COS' GROUP BY employeeID ORDER BY userID";
+  $stmt = $mysqli->prepare($sql);
+  $stmt->execute();
+  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+    {
+      $temp[] = $row;
+    }
+  return $temp;
+}
+
+function getPERMDetails($mysqli){
+  $sql = "SELECT employeeID FROM view_employeeinfo WHERE employeeID LIKE '%P' GROUP BY employeeID ORDER BY userID";
+  $stmt = $mysqli->prepare($sql);
+  $stmt->execute();
+  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+    {
+      $temp[] = $row;
+    }
+  return $temp;
+}
+
 
 
 // --------------- E N D  U S E R  I N F O R M A T I O N ---------------
@@ -9361,13 +9392,6 @@ function saveAnnouncement($mysqli, $AnnouncementTitle, $AnnouncementContent)
 
 function getAnnouncement($mysqli)
 {
-  // $sql="SELECT * FROM announcements WHERE userID='".$_SESSION['userID']."'";
-  // $temp = array();
-  // $query = $mysqli->query($sql);
-  // while($res = mysqli_fetch_assoc($query)){
-  //   $temp[] = $res;
-  // }return $temp;
-
   $sql = "SELECT * FROM announcements";
   $temp = array();
   $stmt = $mysqli->prepare($sql);
@@ -9383,19 +9407,6 @@ function getAnnouncement($mysqli)
 
 function getIncomingRoutingSlip($mysqli, $referenceNo)
 {
-  // $sql="SELECT * FROM announcements WHERE userID='".$_SESSION['userID']."'";
-  // $temp = array();
-  // $query = $mysqli->query($sql);
-  // while($res = mysqli_fetch_assoc($query)){
-  //   $temp[] = $res;
-  // }return $temp;
-
-  // $sql = "SELECT di.particulars,dif.remarks,	dif.`actionTaken`,	di.`referenceNo`,CONCAT_WS(' ', pi.firstName, pi.middleName,pi.lastName,pi.extensionName) AS dts_fullname
-  // FROM dts_incoming di 
-  // LEFT JOIN  dts_incomingfield dif ON
-  // di.`id` = dif.`referenceNo`
-  // LEFT JOIN personal_info pi ON
-  // pi.userID = dif.`personConcerned` WHERE di.id = :id ";
   $sql = "SELECT * FROM view_dts_incoming WHERE referenceNo in (:referenceNo)";
   $temp = array();
   $stmt = $mysqli->prepare($sql);
@@ -9422,8 +9433,6 @@ function getIncomingRoutingSlip2($mysqli, $referenceNo)
   return $temp;
 }
 
-
-
 function getReferenceNo($mysqli)
 {
   $sql = "SELECT * FROM view_dts_incoming";
@@ -9440,19 +9449,6 @@ function getReferenceNo($mysqli)
 
 function getOutgoingRoutingSlip($mysqli, $referenceNo)
 {
-  // $sql="SELECT * FROM announcements WHERE userID='".$_SESSION['userID']."'";
-  // $temp = array();
-  // $query = $mysqli->query($sql);
-  // while($res = mysqli_fetch_assoc($query)){
-  //   $temp[] = $res;
-  // }return $temp;
-
-  // $sql = "SELECT di.particulars,dif.remarks,	dif.`actionTaken`,	di.`referenceNo`,CONCAT_WS(' ', pi.firstName, pi.middleName,pi.lastName,pi.extensionName) AS dts_fullname
-  // FROM dts_incoming di 
-  // LEFT JOIN  dts_incomingfield dif ON
-  // di.`id` = dif.`referenceNo`
-  // LEFT JOIN personal_info pi ON
-  // pi.userID = dif.`personConcerned` WHERE di.id = :id ";
   $sql = "SELECT * FROM view_dts_outgoing WHERE referenceNo in (:referenceNo)";
   $temp = array();
   $stmt = $mysqli->prepare($sql);
@@ -9479,32 +9475,3 @@ function getOutgoingRoutingSlip2($mysqli, $referenceNo)
   //  echo $temp;
   return $temp;
 }
-
-//function getIncomingRoutingSlip2($mysqli, $referenceNo)
-//{
-  //$new_ref = trim($referenceNo,"[]");
-  //$sql = "SELECT * FROM view_dts_incoming WHERE referenceNo in ($new_ref)";
-    
-  //$temp = array();
-  //$stmt = $mysqli->prepare($sql);
-  //$stmt->execute();
-  // while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-  //while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    //$temp[] = $row;
-  //}
-  ///
-   //echo $temp;
-  //return $temp;
-//}
-
-//function getReferenceNo($mysqli)
-//{
-  //$sql = "SELECT * FROM view_dts_incoming";
-  //$temp = array();
-  //$stmt = $mysqli->prepare($sql);
-  //$stmt->execute();
-  //while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    //$temp[] = $row;
-  //}
-  //return $temp;
-//}

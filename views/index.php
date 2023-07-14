@@ -1,6 +1,10 @@
 <?php include("../common/header.php"); ?>
 <?php include("../common/sidebar.php"); ?>
 
+<?php $employeeBDay = getAllBday($mysqli); ?>
+<?php $getCOS = getCOSDetails($mysqli); ?>
+<?php $getPERM = getPERMDetails($mysqli); ?>
+
 <!--start page wrapper -->
 <div class="page-wrapper">
 	<div class="page-content">

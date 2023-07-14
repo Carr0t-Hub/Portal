@@ -11,7 +11,7 @@ if (getPasswordUpdate($mysqli, $username)) {
   if (!$log == false) {
     //if login is successful redirect user to update password page.
     $_SESSION = $log;
-    echo "<script>window.location.href='../UpdatePassword.php'</script>";
+    echo "<script>window.location.href='../process/UpdatePassword.php'</script>";
   } else {
     echo "<script>alert('Invalid Username and Password or Account is Disabled');</script>";
     echo "<script>window.location.href='../index.php'</script>";
