@@ -2163,7 +2163,7 @@ input::placeholder {
 
 .topbar .navbar .dropdown-app .dropdown-menu .app-container {
     position: relative;
-    height: 370px;
+    height: 170px;
 }
 
 
@@ -2324,68 +2324,68 @@ input::placeholder {
 
 .header-message-list {
 	position: relative;
-	height: 360px
+	height: 170px
 }
 
 .header-notifications-list {
 	position: relative;
-	height: 360px
+	height: 170px
 }
 
 .dropdown-large .notify {
 	width: 45px;
-    height: 45px;
-    font-size: 20px;
-    text-align: center;
-    border-radius: 50%;
-    background-color: #f1f1f1;
-    margin-right: 15px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	height: 45px;
+	font-size: 20px;
+	text-align: center;
+	border-radius: 50%;
+	background-color: #f1f1f1;
+	margin-right: 15px;
+	text-transform: uppercase;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 
 .dropdown-large .cart-product-title {
 	color: #140e22;
-    font-size: 14px;
-    margin-bottom: 0px;
+	font-size: 14px;
+	margin-bottom: 0px;
 }
 
 .dropdown-large .cart-product-price {
 	color: #818189;
-    font-size: 14px;
-    margin-bottom: 0;
+	font-size: 14px;
+	margin-bottom: 0;
 }
 
 .dropdown-large .cart-product-cancel {
-    right: -7px;
-    top: -5px;
-    font-size: 16px;
-    background-color: #fff;
-    border: 1px solid #eee;
-    width: 1.4rem;
-    height: 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+	right: -7px;
+	top: -5px;
+	font-size: 16px;
+	background-color: #fff;
+	border: 1px solid #eee;
+	width: 1.4rem;
+	height: 1.4rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
 }
 
 .dropdown-large .cart-product {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    border-radius: 0px;
-    border: 1px solid rgb(231 231 231);
-    padding: 4px;
-    background-color: rgb(255 255 255);
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	border-radius: 0px;
+	border: 1px solid rgb(231 231 231);
+	padding: 4px;
+	background-color: rgb(255 255 255);
 }
 
 .dropdown-large .cart-product img {
-    width: 100%;
+	width: 100%;
 }
 
 
@@ -2686,4 +2686,12 @@ input::placeholder {
 	.chat-top-header-menu {
 		display: none
 	}
+}
+
+ /* This solution was derived from: https://stackoverflow.com/questions/37629860/automatically-resizing-textarea-in-bootstrap */
+textarea.textarea-autosize {
+	padding-top:10px;
+	padding-bottom:25px; /* increased! */
+	width:100%;
+	display:block;
 }

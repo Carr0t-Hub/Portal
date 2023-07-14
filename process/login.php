@@ -2,7 +2,6 @@
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-
 //check if the user needs to update password.
 if (getPasswordUpdate($mysqli, $username)) {
   //if true login the user using the oldway. para makapag login parin using old method and old password (without hash)

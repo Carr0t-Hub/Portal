@@ -7,7 +7,8 @@
 <!--End Back To Top Button-->
 
   <footer class="page-footer">
-    <p class="mb-0">Copyright © 2022. All right reserved.</p>
+    <p class="mb-0">Copyright © 2023. All right reserved.</p>
+		<p class="designattion mb-0"><small>Designed by: Incompetent People</small></p>
   </footer>
 </div>
 <!--end wrapper-->
@@ -157,6 +158,61 @@
 	</div> -->
 	<!--end switcher-->
 
+<form method="POST" action="../process/User/UpdatePassword.php">
+  <div class="modal fade" id="forceUpdatePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="forceUpdatePasswordLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable border-0" role="document">
+      <div class="modal-content border-0">
+        <div class="modal-header border-0 bg-primary">
+          <h5 class="modal-title" id="forceUpdatePasswordLabel"><strong class="text-white"><i class="fas fa-key"></i> Set New Password</strong></h5>
+        </div>
+
+        <div class="modal-body">
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <h6 class="alert-heading">
+              <strong>
+                <i class="fas fa-envelope"></i>
+                Hi there!
+              </strong>
+            </h6>
+            <p>
+              We have updated our security.
+              All users must provide a new password (atleast 10 characters)
+            </p>
+          </div>
+
+          <div class="m-2">
+            <div class="border-bottom mb-2"></div>
+            <div id="wfh-dates-section">
+              <div class="flex-row d-flex justify-content-between align-items-center text-dark h6">
+                <strong>New Password</strong>
+              </div>
+
+              <div class="flex-row d-flex justify-content-between mb-3">
+                <label class="col-3">Password*</label>
+                <div class="col input-group input-group-sm p-0">
+                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                  <input type="password" class="form-control form-control-sm" aria-describedby="password" id="password" name="password" value="">
+                  <!-- <input id="inputLink" type="text" class="form-control" placeholder="www.myurl.com" aria-describedby="basic-addon1"> -->
+                </div>
+              </div>
+              <div class="flex-row d-flex justify-content-between mb-3">
+                <label class="col-3">Confirm*</label>
+                <div class="col input-group input-group-sm p-0">
+                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                  <input type="password" class="form-control form-control-sm" aria-describedby="confirm-password" id="confirm-password" name="confirm-password" value="">
+                </div>
+              </div>              
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="submit" class="btn btn-sm fw-bold btn-primary shadow-none" name="updatePasswordBtn"> Proceed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
   <!-- Bootstrap JS -->
   <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
@@ -175,6 +231,38 @@
 	<script>
 		new PerfectScrollbar(".app-container")
 	</script>
+
+<script type="text/javascript">
+  function updatePasswordModal() {
+    $('#forceUpdatePassword').modal('show');
+  }
+</script>
+
+<script>
+	function register_auto_resize_textarea(element, need_scroll_to_bottom){
+		var min_height = element.scrollHeight;
+		element.addEventListener('input', function(event){
+			this.style.overflow = 'hidden';
+			if (this.scrollHeight > min_height){
+				this.style.height = 0;
+				// note: setting above property to 0 automatically changed the value of this.scrollHeight as well
+				this.style.height = this.scrollHeight + 'px';
+				if (this.scrollHeight < min_height){
+					this.style.height = min_height + "px";
+				}
+				if (need_scroll_to_bottom){
+					scroll_page_to_the_bottom();
+				}
+			}
+		});
+	}
+	
+	function scroll_page_to_the_bottom(){
+		window.scrollTo(0,document.body.scrollHeight);
+	}
+	
+	register_auto_resize_textarea($example, true);
+</script>
 </body>
 
 </html>
