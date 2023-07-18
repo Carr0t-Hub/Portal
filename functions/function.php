@@ -48,7 +48,7 @@ function userlogin($mysqli, $username, $password, $access)
       $_SESSION['username'] = $row['username'];
       $_SESSION['section'] = $row['section'];
       //return the result if input is correct
-      echo '<script type="text/javascript">alert("WALA NAMANG SESSION POTA")</script>';
+      // echo '<script type="text/javascript">alert("WALA NAMANG SESSION POTA")</script>';
       return $row;
     } else {
   
