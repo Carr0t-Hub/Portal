@@ -84,9 +84,11 @@
           <div class="menu-title">Announcements</div>
         </a>
       </li>
+      <!-- S T A R T  D O C U M E N T  T R A C K I N G -->
+      <?php if (($_SESSION['role'] == 2) || ($_SESSION['role'] == 5) || ($_SESSION['role'] == 6) || ($_SESSION['username'] == "jgayod") || ($_SESSION['username'] == "jceugerio") || ($_SESSION['username'] == "amdelmundo") || ($_SESSION['username'] == "mmemita") || ($_SESSION['username'] == "msvaldeabella")) : ?>
       <li class="menu-label">Document Tracking</li>
       <li>
-        <a href="../records/history.php">
+        <a href="../records/history.php?code=I">
           <div class="parent-icon"><i class='bx bx-book-reader'></i>
           </div>
           <div class="menu-title">Record Management</div>
@@ -99,6 +101,7 @@
           <div class="menu-title">Document Archiving</div>
         </a>
       </li>
+      <?php endif; ?>
       <li class="menu-label">Communications</li>
       <li>
         <a href="#">
@@ -306,8 +309,12 @@
                 </div>
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item d-flex align-items-center" href="javascript:;"><i class="bx bx-user fs-5"></i><span>Profile</span></a></li>
-                <li><a class="dropdown-item d-flex align-items-center" href="javascript:;"><i class="bx bx-cog fs-5"></i><span>Settings</span></a></li>
+                <li><a class="dropdown-item d-flex align-items-center" href="../views/user-profile.php"><i class="bx bx-user fs-5"></i><span>Profile</span></a></li>
+                <li>
+                  <?php if ($_SESSION['role'] == 5) :?>
+                    <a class="dropdown-item d-flex align-items-center" href="../views/user-settings.php"><i class="bx bx-cog fs-5"></i><span>Admin Settings</span></a>
+                  <?php endif; ?>
+                </li>
                 <li><div class="dropdown-divider mb-0"></div></li>
                 <li><a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="bx bx-log-out-circle"></i><span> Sign Out</span></a></li>
               </ul>

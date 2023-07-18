@@ -261,54 +261,74 @@
 	<script src="../assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
   <script src="../assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
 	<script src="../assets/plugins/chartjs/js/chart.js"></script>
+  <script src="../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="../assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 	<script src="../assets/js/index.js"></script>
-  
+
+	<script>
+		$(document).ready(function() {
+			$('#dataTable').DataTable();
+    } );
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			var table = $('#dataTable2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+			table.buttons().container()
+				.appendTo( '#dataTable2_wrapper .col-md-6:eq(0)' );
+		} );
+	</script>
+	
 	<!--app JS-->
 	<script src="../assets/js/app.js"></script>
+
 	<script>
 		new PerfectScrollbar(".app-container")
 	</script>
 
-<script type="text/javascript">
-  function updatePasswordModal() {
-    $('#forceUpdatePassword').modal('show');
-  }
-</script>
+	<script type="text/javascript">
+		function updatePasswordModal() {
+			$('#forceUpdatePassword').modal('show');
+		}
+	</script>
 
-<script type="text/javascript">
-  var myModal = document.getElementById('logoutModal')
-  var myInput = document.getElementById('logoutBtnModal')
+	<script type="text/javascript">
+		var myModal = document.getElementById('logoutModal')
+		var myInput = document.getElementById('logoutBtnModal')
 
-  myModal.addEventListener('shown.bs.modal', function() {
-    myInput.focus()
-  })
-</script>
+		myModal.addEventListener('shown.bs.modal', function() {
+			myInput.focus()
+		})
+	</script>
 
-<script>
-	function register_auto_resize_textarea(element, need_scroll_to_bottom){
-		var min_height = element.scrollHeight;
-		element.addEventListener('input', function(event){
-			this.style.overflow = 'hidden';
-			if (this.scrollHeight > min_height){
-				this.style.height = 0;
-				// note: setting above property to 0 automatically changed the value of this.scrollHeight as well
-				this.style.height = this.scrollHeight + 'px';
-				if (this.scrollHeight < min_height){
-					this.style.height = min_height + "px";
+	<script>
+		function register_auto_resize_textarea(element, need_scroll_to_bottom){
+			var min_height = element.scrollHeight;
+			element.addEventListener('input', function(event){
+				this.style.overflow = 'hidden';
+				if (this.scrollHeight > min_height){
+					this.style.height = 0;
+					// note: setting above property to 0 automatically changed the value of this.scrollHeight as well
+					this.style.height = this.scrollHeight + 'px';
+					if (this.scrollHeight < min_height){
+						this.style.height = min_height + "px";
+					}
+					if (need_scroll_to_bottom){
+						scroll_page_to_the_bottom();
+					}
 				}
-				if (need_scroll_to_bottom){
-					scroll_page_to_the_bottom();
-				}
-			}
-		});
-	}
-	
-	function scroll_page_to_the_bottom(){
-		window.scrollTo(0,document.body.scrollHeight);
-	}
-	
-	register_auto_resize_textarea($example, true);
-</script>
+			});
+		}
+		
+		function scroll_page_to_the_bottom(){
+			window.scrollTo(0,document.body.scrollHeight);
+		}
+		
+		register_auto_resize_textarea($example, true);
+	</script>
 </body>
 
 </html>

@@ -9313,6 +9313,28 @@ function getFWALogs($mysqli, $userID, $remarks){
 // --------------- E N D  W O R K  S C H E D U L E -----------------
 
 // --------------- S T A R T  U S E R  I N F O R M A T I O N ---------------
+function getAllEmpList($mysqli){
+  $sql = "SELECT * FROM view_employeeinfo WHERE disabled = 0 ORDER BY userID";
+  $temp = array();
+  $stmt = $mysqli->prepare($sql);
+  $stmt->execute();
+  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $temp[] = $row;
+  }
+  return $temp;
+}
+
+function getAllEmpInfor($mysqli, $userID){
+  $sql = "SELECT * FROM view_employeeinfo WHERE userID = :userID AND disabled = 0 ORDER BY userID";
+  $temp = array();
+  $stmt = $mysqli->prepare($sql);
+  $stmt->execute(array(':userID' => $userID));
+  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $temp[] = $row;
+  }
+  return $temp;
+}
+
 function getFullName($mysqli, $username){
   $sql = "SELECT * FROM view_employeeinfo WHERE username = :username";
   $temp = array();
