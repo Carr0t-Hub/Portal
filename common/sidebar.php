@@ -1,7 +1,3 @@
-<?php 
-  $fullname = getFullname($mysqli, $_SESSION['username']);
-?>
-
 <!--wrapper-->
 <div class="wrapper">
   <!--sidebar wrapper -->
@@ -301,6 +297,7 @@
                 <img src="../assets/images/avatars/avatar-1.png" class="user-img" alt="user avatar">
                 <div class="user-info">
                   <p class="user-name mb-0">
+                    <?php $fullname = getFullname($mysqli, $_SESSION['username']); ?>
                     <?php foreach ($fullname as $data) :?>
                       <?php echo strtoupper($data['firstName'] . " " . $data['lastName']); ?>
                     <?php endforeach ?>

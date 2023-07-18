@@ -13,7 +13,7 @@
 </div>
 <!--end wrapper-->
 
-	<!-- search modal -->
+<!-- search modal -->
   <div class="modal" id="SearchModal" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
       <div class="modal-content">
@@ -60,10 +60,9 @@
 		</div>
   </div>
 
+<!-- end search modal -->
 
-    <!-- end search modal -->
-
-	<!--start switcher-->
+<!--start switcher-->
 	<!-- <div class="switcher-wrapper">
 		<div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
 		</div>
@@ -158,102 +157,134 @@
 			</div>
 		</div>
 	</div> -->
-	<!--end switcher-->
+<!--end switcher-->
 
-<form method="POST" action="../process/User/UpdatePassword.php">
-  <div class="modal fade" id="forceUpdatePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="forceUpdatePasswordLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable border-0" role="document">
-      <div class="modal-content border-0">
-        <div class="modal-header border-0 bg-primary">
-          <h5 class="modal-title" id="forceUpdatePasswordLabel"><strong class="text-white"><i class="fas fa-key"></i> Set New Password</strong></h5>
-        </div>
+<!-- ==================================== -->
+<!-- S T A R T  C U S T O M   M O D A L S -->
+<!-- ==================================== -->
 
-        <div class="modal-body">
-          <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <h6 class="alert-heading">
-              <strong>
-                <i class="fas fa-envelope"></i>
-                Hi there!
-              </strong>
-            </h6>
-            <p>
-              We have updated our security.
-              All users must provide a new password (atleast 10 characters)
-            </p>
-          </div>
+<!-- S T A R T  A D M I N  U S E R  S E T T I N G S -->
+<?#php $employee = getAllEmpInfor($mysqli, $_POST['employeeID']);?>
+	<div class="modal fade" id="adminUserSettings" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="adminUserSettingsLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="adminUserSettingsLabel">Employee Details</h5>
+					<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+				</div>
+				<?#php foreach ($employee as $key) : ?>
+					<div class="modal-body">
 
-          <div class="m-2">
-            <div class="border-bottom mb-2"></div>
-            <div id="wfh-dates-section">
-              <div class="flex-row d-flex justify-content-between align-items-center text-dark h6">
-                <strong>New Password</strong>
-              </div>
+					</div>
+				<?#php endforeach; ?>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- E N D  A D M I N  U S E R  S E T T I N G S -->
 
-              <div class="flex-row d-flex justify-content-between mb-3">
-                <label class="col-3">Password*</label>
-                <div class="col input-group input-group-sm p-0">
-                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                  <input type="password" class="form-control form-control-sm" aria-describedby="password" id="password" name="password" value="">
-                  <!-- <input id="inputLink" type="text" class="form-control" placeholder="www.myurl.com" aria-describedby="basic-addon1"> -->
-                </div>
-              </div>
-              <div class="flex-row d-flex justify-content-between mb-3">
-                <label class="col-3">Confirm*</label>
-                <div class="col input-group input-group-sm p-0">
-                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                  <input type="password" class="form-control form-control-sm" aria-describedby="confirm-password" id="confirm-password" name="confirm-password" value="">
-                </div>
-              </div>              
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer bg-light">
-          <button type="submit" class="btn btn-sm fw-bold btn-primary shadow-none" name="updatePasswordBtn"> Proceed</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
+<!-- S T A R T  U P D A T E  P A S S W O R D -->
+	<form method="POST" action="../process/User/UpdatePassword.php">
+		<div class="modal fade" id="forceUpdatePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="forceUpdatePasswordLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable border-0" role="document">
+				<div class="modal-content border-0">
+					<div class="modal-header border-0 bg-primary">
+						<h5 class="modal-title" id="forceUpdatePasswordLabel"><strong class="text-white"><i class="bx bx-key"></i> Set New Password</strong></h5>
+					</div>
 
-	<!-- L O G O U T  B U T T O N -->
+					<div class="modal-body">
+						<div class="alert alert-primary alert-dismissible fade show" role="alert">
+							<h6 class="alert-heading">
+								<strong>
+									<i class="bx bx-envelope"></i>
+									Hi there!
+								</strong>
+							</h6>
+							<p>
+								We have updated our security.
+								All users must provide a new password (atleast 10 characters)
+							</p>
+						</div>
+						<div class="m-2">
+							<div class="border-bottom mb-2"></div>
+							<div id="wfh-dates-section">
+								<div class="flex-row d-flex justify-content-between align-items-center text-dark h6">
+									<strong>New Password</strong>
+								</div>
+								<div class="flex-row d-flex justify-content-between mb-3">
+									<label class="col-3">Password*</label>
+									<div class="col input-group input-group-sm p-0">
+										<span class="input-group-text"><i class="bx bx-lock"></i></span>
+										<input type="password" class="form-control form-control-sm" aria-describedby="password" id="password" name="password" value="">
+									</div>
+								</div>
+								<div class="flex-row d-flex justify-content-between mb-3">
+									<label class="col-3">Confirm*</label>
+									<div class="col input-group input-group-sm p-0">
+										<span class="input-group-text"><i class="bx bx-lock"></i></span>
+										<input type="password" class="form-control form-control-sm" aria-describedby="confirm-password" id="confirm-password" name="confirm-password" value="">
+									</div>
+								</div>              
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer bg-light">
+						<button type="submit" class="btn btn-sm fw-bold btn-primary shadow-none" name="updatePasswordBtn"> Proceed</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+<!-- E N D  U P D A T E  P A S S W O R D -->
+
+<!-- S T A R T  L O G O U T  B U T T O N -->
 	<form method="POST" action="../process/logout.php">
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-danger">
-          <h6 class="modal-title" id="logoutModalLabel"><strong class="text-white"> Ready to Leave?</strong></h6>
-        </div>
-        <div class="modal-body text-dark"><i class="fas fa-sign-out-alt"></i> This will end your current session.</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-sm fw-bold btn-secondary shadow-none" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" name="logout" id="logoutBtnModal" class="btn btn-sm fw-bold btn-danger shadow-none"><i class="fas fa-sign-out-alt"></i> Logout!</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header bg-danger">
+						<h6 class="modal-title" id="logoutModalLabel"><strong class="text-white"> Ready to Leave?</strong></h6>
+					</div>
+					<div class="modal-body text-dark"><i class="fas fa-sign-out-alt"></i> This will end your current session.</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-sm fw-bold btn-secondary shadow-none" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" name="logout" id="logoutBtnModal" class="btn btn-sm fw-bold btn-danger shadow-none"><i class="fas fa-sign-out-alt"></i> Logout!</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+<!-- E N D  L O G O U T  B U T T O N -->
 
-<!-- S U C C E S S  M E S S A G E  -->
-<div class="modal fade" id="positive" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="labelModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content my-2">
-      <div class="modal-header bg-dark text-light">
-        <h5><i class="fas fa-info-circle 2x text-success" id="headerMsg"></i></h5><input type="text" name="" id="PheaderMsg" class="form-control border-0 text-light bg-dark" value="" readonly style="font-size: 20px;">
-      </div>
-      <div class="modal-body">
-        <input class="w-100 alert alert-success mb-0 text-dark " role="alert" type="text" name="" id="Pmessage" value="" readonly>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-lg" data-bs-dismiss="modal" onclick="window.location.reload();"><i class="fas fa-thumbs-up"></i> Okay</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- S T A R T  S U C C E S S  M E S S A G E  -->
+	<div class="modal fade" id="positive" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="labelModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content my-2">
+				<div class="modal-header bg-dark text-light">
+					<h5><i class="fas fa-info-circle 2x text-success" id="headerMsg"></i></h5><input type="text" name="" id="PheaderMsg" class="form-control border-0 text-light bg-dark" value="" readonly style="font-size: 20px;">
+				</div>
+				<div class="modal-body">
+					<input class="w-100 alert alert-success mb-0 text-dark " role="alert" type="text" name="" id="Pmessage" value="" readonly>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success btn-lg" data-bs-dismiss="modal" onclick="window.location.reload();"><i class="fas fa-thumbs-up"></i> Okay</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- E N D  S U C C E S S  M E S S A G E  -->
 
-  <!-- Bootstrap JS -->
+<!-- ==================================== -->
+<!-- E N D   C U S T O M   M O D A L S -->
+<!-- ==================================== -->
+
+<!-- Bootstrap JS -->
   <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
-	<!--plugins-->
+<!--plugins-->
 	<script src="../assets/js/jquery.min.js"></script>
 	<script src="../assets/plugins/simplebar/js/simplebar.min.js"></script>
 	<script src="../assets/plugins/metismenu/js/metisMenu.min.js"></script>
@@ -304,7 +335,7 @@
 		})
 	</script>
 
-	<script>
+	<script type="text/javascript">
 		function register_auto_resize_textarea(element, need_scroll_to_bottom){
 			var min_height = element.scrollHeight;
 			element.addEventListener('input', function(event){

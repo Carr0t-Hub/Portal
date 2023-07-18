@@ -1,7 +1,7 @@
 <?php
 include('../functions/function.php'); 
-include_once("../test/connection.php");
-include_once('../fpdf/fpdf.php');
+include_once("../config/connection.php");
+include_once('../assets/plugins/fpdf/fpdf.php');
 
 
 $rs_to = "";

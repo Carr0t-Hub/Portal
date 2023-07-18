@@ -24,7 +24,7 @@
             <div class="a">
               <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button class="nav-link<?php if($_GET['code']=="I"){ echo "active";} ?>" id="nav-incoming-tab" data-bs-toggle="tooltip" data-bs-placement="left" title="View Information" onclick="window.location.href= 'history.php?code=I';" type="button" role="tab" aria-controls="nav-incoming" aria-selected="true"><b>Incoming</b></button>
+                  <button class="nav-link<?php if($_GET['code']=="I"){ echo "active";} ?>" id="nav-incoming-tab" onclick="window.location.href= 'history.php?code=I';" data-bs-toggle="tab" data-bs-target="#nav-incoming" type="button" role="tab" aria-controls="nav-incoming" aria-selected="true"><b>Incoming</b></button>
                   <button class="nav-link<?php if($_GET['code']=="O"){ echo "active";} ?>" id="nav-outgoing-tab" onclick="window.location.href= 'history.php?code=O';" data-bs-toggle="tab" data-bs-target="#nav-outgoing" type="button" role="tab" aria-controls="nav-outgoing" aria-selected="false"><b>Outgoing</b></button>
                   <button class="nav-link<?php if($_GET['code']=="SO"){ echo "active";} ?>" id="nav-specialorder-tab" onclick="window.location.href= 'history.php?code=SO';" data-bs-toggle="tab" data-bs-target="#nav-so" type="button" role="tab" aria-controls="nav-so" aria-selected="false"><b>Special Order</b></button>
                   <button class="nav-link<?php if($_GET['code']=="M"){ echo "active";} ?>" id="nav-specialorder-tab" onclick="window.location.href= 'history.php?code=M';" data-bs-toggle="tab" data-bs-target="#nav-memo" type="button" role="tab" aria-controls="nav-memo" aria-selected="false"><b>Memorandum</b></button>
@@ -37,12 +37,12 @@
                   <table class="table table-bordered table-striped table-hover table-responsive-sm table-responsive-md display" id="dataTable" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                       <tr>
-                        <th class="text-center" align ="left">Reference Number</th>
-                        <th class="text-center">Date Filed</th>
-                        <th class="text-center">Sender</th>
-                        <th class="text-center">Subject</th>
-                        <th class="text-center">Document Type</th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center align-middle">Reference Number</th>
+                        <th class="text-center align-middle">Date Filed</th>
+                        <th class="text-center align-middle">Sender</th>
+                        <th class="text-center align-middle">Subject</th>
+                        <th class="text-center align-middle">Document Type</th>
+                        <th class="text-center align-middle">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -61,8 +61,8 @@
                           <td><b><?= $v['documentType'] ?></b></td>
                           <td width="20%">
                             <form action="incomingDocs.php" method="POST">
-                              <input type="text" hidden name="referenceNo" id="referenceNo" value="<?= $v['referenceNo']; ?>">
-                              <button type="submit" class="btn btn-success" name="viewIncomingbtn" id="viewIncomingbtn"><i class="fas fa-eye"></i> View </button>
+                              <input type="text" hidden value="<?= $v['referenceNo']; ?>">
+                              <button type="submit" class="btn btn-success"><i class="fas fa-eye"></i> View </button>
                               <a href="generate_pdf.php?referenceNo=<?=  $v['referenceNo']; ?>" class="btn button2"><i class="fa fa-print"></i> Print</a>
                             </form>
                           </td>
